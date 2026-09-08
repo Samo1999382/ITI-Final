@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:test2/screens/NavScreen/Nav.dart';
 import 'package:test2/screens/loginScreen/logInScreen.dart';
 import 'package:test2/widgets/saleWidget.dart';
 import 'package:test2/widgets/textInput.dart';
@@ -11,8 +12,9 @@ class signUpScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body: Padding(
-        padding: EdgeInsetsGeometry.all(35),
+        padding: EdgeInsetsGeometry.only(top: 35, right: 30, left: 30),
         child: SingleChildScrollView(child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
@@ -25,7 +27,7 @@ class signUpScreen extends StatelessWidget {
             SizedBox(height: 10,),
             textInput(text: 'Confirm Password', hint: '********', suf: true,),
             SizedBox(height: 45,),
-            themedButton(text: 'Create account',),
+            themedButton(text: 'Create account',dir: MainNavigationScreen()),
             SizedBox(height: 70,),
             Padding(
                 padding: EdgeInsetsGeometry.symmetric(vertical: 10),

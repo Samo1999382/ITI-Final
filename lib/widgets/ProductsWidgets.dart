@@ -4,64 +4,66 @@ class ProductCard extends StatefulWidget {
   final String title;
   final String price;
   final String imagePath;
+  final double? imageHeight; // Optional image height parameter
 
-   ProductCard({
+  ProductCard({
     super.key,
     required this.title,
     required this.price,
     required this.imagePath,
+    this.imageHeight, // Add this parameter
   });
 
-  factory ProductCard.watch({Key? key}) =>  ProductCard(
+  factory ProductCard.watch({Key? key}) => ProductCard(
     key: key,
     title: 'Watch',
     price: '\$40',
     imagePath: 'assets/images/watch.jpg',
   );
 
-  factory ProductCard.nikeShoes({Key? key}) =>  ProductCard(
+  factory ProductCard.nikeShoes({Key? key}) => ProductCard(
     key: key,
     title: 'Nike Shoes',
     price: '\$430',
     imagePath: 'assets/images/nikeShoe.jpg',
   );
 
-  factory ProductCard.lgTv({Key? key}) =>  ProductCard(
+  factory ProductCard.lgTv({Key? key}) => ProductCard(
     key: key,
     title: 'LG TV',
     price: '\$330',
     imagePath: 'assets/images/LGTV.jpg',
   );
 
-  factory ProductCard.airpods({Key? key}) =>  ProductCard(
+  factory ProductCard.airpods({Key? key}) => ProductCard(
     key: key,
     title: 'Airpods',
     price: '\$333',
     imagePath: 'assets/images/Airpods.jpg',
   );
 
-  factory ProductCard.jacket({Key? key}) =>  ProductCard(
+  factory ProductCard.jacket({Key? key}) => ProductCard(
     key: key,
     title: 'Jacket',
     price: '\$50',
     imagePath: 'assets/images/Jacket.jpg',
   );
 
-  factory ProductCard.hoodie({Key? key}) =>  ProductCard(
+  factory ProductCard.hoodie({Key? key}) => ProductCard(
     key: key,
     title: 'Hoodie',
     price: '\$400',
     imagePath: 'assets/images/Hoodie.jpg',
   );
 
-  factory ProductCard.shirt({Key? key}) =>  ProductCard(
+  factory ProductCard.shirt({Key? key}) => ProductCard(
     key: key,
     title: 'T-Shirt',
     price: '\$150',
     imagePath: 'assets/images/shirt.jpg',
   );
 
-  factory ProductCard.outfit({Key? key}) =>  ProductCard(
+  factory ProductCard.outfit({Key? key}) => ProductCard(
     key: key,
     title: 'Full Outfit',
     price: '\$750',
@@ -79,60 +81,23 @@ class _ProductCardState extends State<ProductCard> {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: Color(0xffF8F7F7),
         borderRadius: BorderRadius.circular(16),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Expanded(
-            child: Stack(
-              children: [
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(16),
-                  child: Image.asset(
-                    widget.imagePath,
-                    width: double.infinity,
-                    height: double.infinity,
-                    fit: BoxFit.cover,
-                    errorBuilder: (context, error, stackTrace) {
-                      return Container(
-                        color: Colors.grey[300],
-                        child: const Center(
-                          child: Icon(
-                            Icons.image,
-                            color: Colors.grey,
-                            size: 40,
-                          ),
-                        ),
-                      );
-                    },
-                  ),
-                ),
-                Positioned(
-                  top: 8,
-                  right: 8,
-                  child: GestureDetector(
-                    onTap: () {
-                      setState(() {
-                        isFavorite = !isFavorite;
-                      });
-                    },
-                    child: CircleAvatar(
-                      radius: 14,
-                      backgroundColor: Colors.black.withOpacity(0.3),
-                      child: Icon(
-                        isFavorite ? Icons.favorite : Icons.favorite_border,
-                        color: Colors.white,
-                        size: 16,
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
+          // Conditional: Use SizedBox if imageHeight is provided, otherwise Expanded
+          widget.imageHeight != null
+              ? SizedBox(
+            height: widget.imageHeight,
+            child: _buildImageWithStack(),
+          )
+              : Expanded(
+            child: _buildImageWithStack(),
           ),
           const SizedBox(height: 8),
+          Padding(padding: EdgeInsetsGeometry.symmetric(horizontal: 10), child:
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -147,7 +112,6 @@ class _ProductCardState extends State<ProductCard> {
                       color: Colors.black,
                     ),
                   ),
-                  const SizedBox(height: 4),
                   Text(
                     widget.price,
                     style: const TextStyle(
@@ -169,7 +133,7 @@ class _ProductCardState extends State<ProductCard> {
                 },
                 borderRadius: BorderRadius.circular(20),
                 child: Container(
-                  padding: const EdgeInsets.all(6),
+                  padding: const EdgeInsets.all(2),
                   decoration: const BoxDecoration(
                     color: Color(0xFF6055D8),
                     shape: BoxShape.circle,
@@ -183,8 +147,58 @@ class _ProductCardState extends State<ProductCard> {
               ),
             ],
           ),
+          )
         ],
       ),
+    );
+  }
+
+  // Extracted the image with stack into a separate method to avoid code duplication
+  Widget _buildImageWithStack() {
+    return Stack(
+      children: [
+        ClipRRect(
+          borderRadius: BorderRadius.circular(16),
+          child: Image.asset(
+            widget.imagePath,
+            width: double.infinity,
+            height: double.infinity,
+            fit: BoxFit.cover,
+            errorBuilder: (context, error, stackTrace) {
+              return Container(
+                color: Colors.grey[300],
+                child: const Center(
+                  child: Icon(
+                    Icons.image,
+                    color: Colors.grey,
+                    size: 40,
+                  ),
+                ),
+              );
+            },
+          ),
+        ),
+        Positioned(
+          top: 8,
+          right: 8,
+          child: GestureDetector(
+            onTap: () {
+              setState(() {
+                isFavorite = !isFavorite;
+              });
+            },
+            child: CircleAvatar(
+              radius: 14,
+              backgroundColor: Colors.black.withOpacity(0.3),
+              child: Icon(
+                isFavorite ? Icons.favorite : Icons.favorite_border,
+                color: Colors.white,
+                size: 16,
+              ),
+            ),
+          ),
+        ),
+      ],
     );
   }
 }

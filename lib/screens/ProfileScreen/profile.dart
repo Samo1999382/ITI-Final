@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:test2/screens/loginScreen/logInScreen.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
@@ -66,22 +67,24 @@ class ProfileScreen extends StatelessWidget {
                 color: Colors.transparent,
                 child: InkWell(
                   onTap: () {
+                    Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => logInScreen()), (route) => false,);
                   },
                   borderRadius: BorderRadius.circular(20),
-                  hoverColor: const Color(0xFFF55F1F).withOpacity(0.08),
-                  splashColor: const Color(0xFFF55F1F).withOpacity(0.5),
-                  child: const Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-                    child: Text(
-                      'Sign Out',
-                      style: TextStyle(
-                        color: Color(0xFFF55F1F),
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
+                  hoverColor: const Color(0x14F55F1F),
+                  splashColor: const Color(0x7FF55F1F),
+                  child: Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+                      child: Text(
+                        'Sign Out',
+                        style: TextStyle(
+                          color: Color(0xFFF55F1F),
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
-                  ),
                 ),
+
               ),
               const SizedBox(height: 16),
             ],

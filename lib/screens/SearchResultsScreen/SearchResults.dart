@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'package:test2/widgets/searchBar.dart';
 import '../../widgets/ProductsWidgets.dart';
 
 class SearchResultsPage extends StatefulWidget {
@@ -13,6 +13,7 @@ class SearchResultsPage extends StatefulWidget {
 
 class _SearchResultsPageState extends State<SearchResultsPage> {
   late TextEditingController _searchController;
+  String _displayQuery = '';
 
   final Color focusedColor = const Color(0xFFF0EFF0);
   final Color activeColor = const Color(0xFFF8F7F7);
@@ -22,18 +23,13 @@ class _SearchResultsPageState extends State<SearchResultsPage> {
   void initState() {
     super.initState();
     _searchController = TextEditingController(text: widget.query);
+    _displayQuery = widget.query;
   }
 
   @override
   void dispose() {
     _searchController.dispose();
     super.dispose();
-  }
-
-  void _onSearchSubmitted(String query) {
-    if (query.trim().isNotEmpty) {
-      setState(() {});
-    }
   }
 
   @override
@@ -55,59 +51,13 @@ class _SearchResultsPageState extends State<SearchResultsPage> {
                   ),
                   const SizedBox(width: 12),
                   Expanded(
-                    child: TextField(
-                      controller: _searchController,
-                      onSubmitted: _onSearchSubmitted,
-                      textInputAction: TextInputAction.search,
-                      cursorColor: purpleColor,
-                      style: const TextStyle(
-                        color: Colors.black,
-                        fontSize: 15,
-                        fontWeight: FontWeight.bold,
-                      ),
-                      decoration: InputDecoration(
-                        prefixIcon: Icon(
-                          Icons.search,
-                          color: Colors.grey.shade600,
-                          size: 20,
-                        ),
-                        suffixIcon: GestureDetector(
-                          onTap: () {
-                            _searchController.clear();
-                          },
-                          child: Padding(
-                            padding: const EdgeInsets.all(12.0),
-                            child: Container(
-                              decoration: const BoxDecoration(
-                                color: Colors.black,
-                                shape: BoxShape.circle,
-                              ),
-                              child: const Icon(
-                                Icons.close,
-                                color: Colors.white,
-                                size: 12,
-                              ),
-                            ),
-                          ),
-                        ),
-                        filled: true,
-                        fillColor: activeColor,
-                        contentPadding: const EdgeInsets.symmetric(vertical: 0.0),
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(25.0),
-                          borderSide: BorderSide(
-                            color: Colors.grey.shade300,
-                            width: 1,
-                          ),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(25.0),
-                          borderSide: BorderSide(
-                            color: purpleColor,
-                            width: 1.5,
-                          ),
-                        ),
-                      ),
+                    child: searchBar(
+                      searchController: _searchController,
+                      onSubmitted: (value) {
+                        setState(() {
+                          _displayQuery = value;
+                        });
+                      },
                     ),
                   ),
                 ],
@@ -122,7 +72,7 @@ class _SearchResultsPageState extends State<SearchResultsPage> {
                       children: [
                         const TextSpan(text: 'Results for " '),
                         TextSpan(
-                          text: _searchController.text,
+                          text: _displayQuery,
                           style: const TextStyle(
                             color: Colors.black,
                             fontWeight: FontWeight.bold,

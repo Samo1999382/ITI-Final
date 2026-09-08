@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:test2/screens/NavScreen/Nav.dart';
 import 'package:test2/screens/signUpScreen/signUpScreen.dart';
 import 'package:test2/widgets/saleWidget.dart';
 import 'package:test2/widgets/textInput.dart';
@@ -19,8 +20,9 @@ class _logInScreenState extends State<logInScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body: Padding(
-        padding: EdgeInsetsGeometry.all(35),
+        padding: EdgeInsetsGeometry.only(top: 35, right: 30, left: 30),
         child: SingleChildScrollView(child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
@@ -79,7 +81,7 @@ class _logInScreenState extends State<logInScreen> {
                 ),
             ),
             SizedBox(height: 5,),
-            themedButton(text: 'Login',),
+            themedButton(text: 'Login',dir: MainNavigationScreen()),
             Padding(
               padding: EdgeInsetsGeometry.symmetric(vertical: 10),
               child:
