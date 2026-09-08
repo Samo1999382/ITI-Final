@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:test2/screens/NavScreen/Nav.dart';
+import 'package:test2/screens/loginScreen/logInScreen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class splashScreen extends StatefulWidget {
   const splashScreen({super.key});
@@ -17,13 +19,21 @@ class _SplashScreenState extends State<splashScreen> {
   }
 
   void _navigateToHome() async {
-    // Wait 2 seconds
     await Future.delayed(const Duration(seconds: 2));
 
-    if (mounted) { // Always check if widget is still mounted
+    if (!mounted) return;
+
+    final User? user = FirebaseAuth.instance.currentUser;
+
+    if (user != null) {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder: (context) => const MainNavigationScreen()),
+      );
+    } else {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => const logInScreen()),
       );
     }
   }
@@ -37,7 +47,7 @@ class _SplashScreenState extends State<splashScreen> {
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
           Padding(
-            padding: const EdgeInsets.all(50), // Use const EdgeInsets
+            padding: const EdgeInsets.all(50),
             child: Text(
               'Loading ...',
               style: GoogleFonts.arimo(

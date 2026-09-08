@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:test2/screens/HomeScreen/home.dart';
-import 'package:test2/screens/NavScreen/Nav.dart';
-import 'package:test2/screens/ProductsScreen/Products.dart';
-import 'package:test2/screens/ProfileScreen/profile.dart';
-import 'package:test2/screens/SearchScreen/SearchScreen.dart';
-import 'package:test2/screens/loginScreen/logInScreen.dart';
 import 'package:test2/screens/splashScreen/splash.dart';
-import 'package:test2/widgets/ProductsWidgets.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_auth/firebase_auth.dart'; // Add this
+import 'firebase_options.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(const MyApp());
 }
 
@@ -20,9 +20,10 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        colorScheme: .fromSeed(seedColor: Colors.deepPurple),
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
-      home: splashScreen(),
+      home: const splashScreen(), // Always go to splash first
+      debugShowCheckedModeBanner: false,
     );
   }
 }

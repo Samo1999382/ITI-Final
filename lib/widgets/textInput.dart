@@ -5,12 +5,20 @@ class textInput extends StatefulWidget {
   final String text;
   final String hint;
   final bool suf;
+  final TextEditingController? controller;
+  final TextInputType? keyboardType;
+  final bool obscureText;
+  final VoidCallback? onSuffixTap;
 
   const textInput({
     super.key,
     required this.text,
     required this.hint,
     this.suf = false,
+    this.controller,
+    this.keyboardType,
+    this.obscureText = false,
+    this.onSuffixTap,
   });
 
   @override
@@ -22,6 +30,8 @@ class _TextInputState extends State<textInput> {
 
   @override
   Widget build(BuildContext context) {
+    final bool isObscure = widget.obscureText || (widget.suf ? _obscureText : false);
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
@@ -35,17 +45,19 @@ class _TextInputState extends State<textInput> {
         ),
         const SizedBox(height: 10),
         TextFormField(
-          obscureText: widget.suf ? _obscureText : false,
+          controller: widget.controller,
+          obscureText: isObscure,
+          keyboardType: widget.keyboardType,
           decoration: InputDecoration(
             suffixIcon: widget.suf
                 ? IconButton(
-              onPressed: () {
+              onPressed: widget.onSuffixTap ?? () {
                 setState(() {
                   _obscureText = !_obscureText;
                 });
               },
               icon: Icon(
-                _obscureText ? Icons.visibility_off : Icons.visibility,
+                isObscure ? Icons.visibility_off : Icons.visibility,
                 color: Colors.black,
               ),
             )
