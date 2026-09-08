@@ -5,7 +5,7 @@ import 'package:test2/widgets/ProductsWidgets.dart';
 import 'package:test2/widgets/catNav.dart';
 import 'package:test2/widgets/saleWidget.dart';
 import 'package:test2/widgets/searchBar.dart';
-import 'package:carousel_slider/carousel_slider.dart' as carousel; // Added 'as carousel'
+import 'package:carousel_slider/carousel_slider.dart' as carousel;
 
 import '../SearchResultsScreen/SearchResults.dart';
 
@@ -17,10 +17,8 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  // Create a search controller
   final TextEditingController _searchController = TextEditingController();
 
-  // Add carousel controller for dots indicator
   int _currentCarouselIndex = 0;
 
   static final Map<String, List<String>> featured = {
@@ -148,7 +146,6 @@ class _HomeScreenState extends State<HomeScreen> {
                     saleWidget(),
                   ],
                 ),
-                // Dots indicator
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [0, 1, 2, 3].map((index) {
@@ -171,7 +168,7 @@ class _HomeScreenState extends State<HomeScreen> {
           SizedBox(height: 5,),
           catnav(text: 'Featured', dir: ProductsScreen()),
           SizedBox(
-            height: 160,
+            height: 170,
             child: ListView.builder(
               scrollDirection: Axis.horizontal,
               padding: EdgeInsets.symmetric(horizontal: 8),
@@ -194,7 +191,7 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           catnav(text: 'Most Popular', dir: ProductsScreen()),
           SizedBox(
-            height: 160,
+            height: 170,
             child: ListView.builder(
               scrollDirection: Axis.horizontal,
               padding: EdgeInsets.symmetric(horizontal: 8),

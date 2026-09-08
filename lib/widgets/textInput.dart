@@ -8,7 +8,6 @@ class textInput extends StatefulWidget {
   final TextEditingController? controller;
   final TextInputType? keyboardType;
   final bool obscureText;
-  final VoidCallback? onSuffixTap;
 
   const textInput({
     super.key,
@@ -18,7 +17,6 @@ class textInput extends StatefulWidget {
     this.controller,
     this.keyboardType,
     this.obscureText = false,
-    this.onSuffixTap,
   });
 
   @override
@@ -30,7 +28,7 @@ class _TextInputState extends State<textInput> {
 
   @override
   Widget build(BuildContext context) {
-    final bool isObscure = widget.obscureText || (widget.suf ? _obscureText : false);
+    final bool isObscure = widget.suf ? _obscureText : widget.obscureText;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -51,7 +49,7 @@ class _TextInputState extends State<textInput> {
           decoration: InputDecoration(
             suffixIcon: widget.suf
                 ? IconButton(
-              onPressed: widget.onSuffixTap ?? () {
+              onPressed: () {
                 setState(() {
                   _obscureText = !_obscureText;
                 });

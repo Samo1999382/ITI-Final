@@ -19,11 +19,9 @@ class _logInScreenState extends State<logInScreen> {
   bool _isLoading = false;
   bool _obscurePassword = true;
 
-  // Controllers
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
-  // Firebase Auth
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
   @override
@@ -33,9 +31,7 @@ class _logInScreenState extends State<logInScreen> {
     super.dispose();
   }
 
-  // Login method
   Future<void> _login() async {
-    // Validate fields
     if (_emailController.text.isEmpty || _passwordController.text.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
@@ -114,7 +110,6 @@ class _logInScreenState extends State<logInScreen> {
     }
   }
 
-  // Forgot password
   Future<void> _resetPassword() async {
     if (_emailController.text.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -164,7 +159,6 @@ class _logInScreenState extends State<logInScreen> {
               const SizedBox(height: 60),
               const saleWidget(),
               const SizedBox(height: 60),
-              // Email field
               textInput(
                 text: 'Email',
                 hint: 'Enter your email',
@@ -172,18 +166,12 @@ class _logInScreenState extends State<logInScreen> {
                 keyboardType: TextInputType.emailAddress,
               ),
               const SizedBox(height: 30),
-              // Password field
               textInput(
                 text: 'Password',
                 hint: 'Enter your password',
                 suf: true,
                 controller: _passwordController,
                 obscureText: _obscurePassword,
-                onSuffixTap: () {
-                  setState(() {
-                    _obscurePassword = !_obscurePassword;
-                  });
-                },
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 10),

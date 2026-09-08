@@ -3,7 +3,7 @@ import 'package:test2/screens/NavScreen/Nav.dart';
 import 'package:test2/screens/loginScreen/logInScreen.dart';
 import 'package:test2/widgets/saleWidget.dart';
 import 'package:test2/widgets/textInput.dart';
-import 'package:test2/widgets/themedButton.dart';
+import 'package:test2/widgets/themedButton.dart' hide textInput;
 import 'package:google_fonts/google_fonts.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -171,11 +171,6 @@ class _signUpScreenState extends State<signUpScreen> {
                 suf: true,
                 controller: _passwordController,
                 obscureText: _obscurePassword,
-                onSuffixTap: () {
-                  setState(() {
-                    _obscurePassword = !_obscurePassword;
-                  });
-                },
               ),
               const SizedBox(height: 10),
               // Confirm Password field
@@ -185,11 +180,6 @@ class _signUpScreenState extends State<signUpScreen> {
                 suf: true,
                 controller: _confirmPasswordController,
                 obscureText: _obscureConfirmPassword,
-                onSuffixTap: () {
-                  setState(() {
-                    _obscureConfirmPassword = !_obscureConfirmPassword;
-                  });
-                },
               ),
               const SizedBox(height: 45),
               themedButton(
